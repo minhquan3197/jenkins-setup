@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.164.3
+FROM jenkins/jenkins
 
 # Prep Jenkins Directories
 USER root
