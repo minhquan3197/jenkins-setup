@@ -1,0 +1,22 @@
+version: "3"
+services:
+  kori_master:
+    build: ./src
+    ports:
+      - "50000:50000"
+    volumes:
+      - jenkins-log:/var/log/jenkins
+      - jenkins-data:/var/jenkins_home
+    networks:
+      - jenkins-net
+  kori_nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    networks:
+      - jenkins-net
+volumes:
+  jenkins-data:
+  jenkins-log:
+networks:
+  jenkins-net:
