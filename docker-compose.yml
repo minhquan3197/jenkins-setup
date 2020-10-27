@@ -5,7 +5,7 @@ services:
     build: ./nginx/
     volumes:
       - ./nginx:/etc/nginx/conf.d/
-      - ./jenskins_data:/var/jenkins_home
+      - ./jenskins_data:/var/jenkins_home:z
     ports:
       - "80:80"
     links:
@@ -17,5 +17,5 @@ services:
     ports:
         - "8080"
     volumes:
-      - ./jenskins_data:/var/jenkins_home:Z
+      - ./jenskins_data:/var/jenkins_home:z
     restart: always
