@@ -1,13 +1,21 @@
 version: "3"
 services:
+  kori_nginx:
+    container_name: kori_nginx
+    build: ./nginx/
+    volumes:
+      - ./nginx:/etc/nginx/conf.d/
+      - ./jenskins_data:/var/jenkins_home
+    ports:
+      - "80:80"
+    links:
+      - "kori_jenkins"
+    restart: always
   kori_jenkins:
     image: jenkins/jenkins
+    container_name: kori_jenskins
     ports:
-      - "8080:8080"
+        - "8080"
     volumes:
-      - ./jenskins_data:/var/jenkins_home:z
-    networks:
-      - jenkins-net
+      - ./jenskins_data:/var/jenkins_home
     restart: always
-networks:
-  jenkins-net:
