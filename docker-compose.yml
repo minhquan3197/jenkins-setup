@@ -17,5 +17,5 @@ services:
     ports:
         - "8080"
     volumes:
-      - ./jenskins_data:/var/jenkins_home
+      - ./jenskins_data:/var/jenkins_home:z
     restart: always
