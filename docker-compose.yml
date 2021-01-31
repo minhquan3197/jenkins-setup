@@ -5,14 +5,14 @@ services:
     build: ./nginx/
     volumes:
       - ./nginx:/etc/nginx/conf.d/
-      - ./jenskins_data:/var/jenkins_home:z
+      - ./jenskins_data:/var/jenkins_home
     ports:
       - "80:80"
-    links:
-      - "kori_jenkins"
+    networks:
+      - net
     restart: always
   kori_jenkins:
-    container_name: kori_jenskins
+    container_name: kori_jenkins
     image: jenkins/jenkins
     ports:
       - "8080:8080"
@@ -22,7 +22,7 @@ services:
       - net
     restart: always
   kori_remote:
-    container_name: remote-host
+    container_name: kori_remote
     image: remote-host
     build:
       context: ./centos
