@@ -1,32 +1,49 @@
 version: "3"
 services:
+  # Nginx
   kori_nginx:
     container_name: kori_nginx
-    build: ./nginx/
+    build: $PWD/nginx/
     volumes:
-      - ./nginx:/etc/nginx/conf.d/
-      - ./jenskins_data:/var/jenkins_home
+      - $PWD/nginx:/etc/nginx/conf.d/
+      - $PWD/jenskins_data:/var/jenkins_home
     ports:
       - "80:80"
     networks:
       - net
     restart: always
+
+  # Jenkins
   kori_jenkins:
     container_name: kori_jenkins
     image: jenkins/jenkins
     ports:
       - "8080:8080"
     volumes:
-      - ./jenskins_data:/var/jenkins_home
+      - $PWD/jenskins_data:/var/jenkins_home
     networks:
       - net
     restart: always
+
+  # Workspace
   kori_remote:
     container_name: kori_remote
     image: remote-host
     build:
-      context: ./centos
+      context: $PWD/centos
     networks:
       - net
+
+  # MySQL
+  kori_mysql:
+    container_name: kori_mysql
+    image: mysql:5.7
+    environment:
+      - "MYSQL_ROOT_PASSWORD=1234"
+    volumes:
+      - "$PWD/database/mysql:/var/lib/mysql"
+    networks:
+      - net
+
 networks:
   net:

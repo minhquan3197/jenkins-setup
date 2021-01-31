@@ -1,2 +1,5 @@
 /jenskins_data/**
 !/jenskins_data/.gitkeep
+
+/database/mysql/**
+!/database/mysql/.gitkeep
