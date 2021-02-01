@@ -3,7 +3,9 @@ services:
   # Nginx
   kori_nginx:
     container_name: kori_nginx
-    build: $PWD/nginx/
+    image: kori_nginx
+    build:
+      context: $PWD/nginx
     volumes:
       - $PWD/nginx:/etc/nginx/conf.d/
       - $PWD/jenskins_data:/var/jenkins_home
@@ -16,7 +18,9 @@ services:
   # Jenkins
   kori_jenkins:
     container_name: kori_jenkins
-    image: jenkins/jenkins
+    image: kori_jenkins
+    build:
+      context: $PWD/jenkins
     ports:
       - "8080:8080"
     volumes:
@@ -28,9 +32,11 @@ services:
   # Workspace
   kori_remote:
     container_name: kori_remote
-    image: remote-host
+    image: kori_remote
     build:
       context: $PWD/centos
+    volumes:
+      - $PWD/scripts:/tmp
     networks:
       - net
 
